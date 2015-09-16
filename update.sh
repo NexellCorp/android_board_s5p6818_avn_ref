@@ -24,10 +24,10 @@ UPDATE_ROOT=false
 VERBOSE=false
 
 # dynamic config
-BOARD_NAME=
+BOARD_NAME=s5p6818_avn_ref
 BOARD_PURE_NAME=
 CHIP_NAME=
-ROOT_DEVICE_TYPE=
+ROOT_DEVICE_TYPE="sd2"
 NSIH_FILE=
 APPLY_KERNEL_INIT_RAMFS=false
 
@@ -952,7 +952,7 @@ get_board_name
 echo "BOARD PURE NAME: ${BOARD_PURE_NAME}"
 CHIP_NAME=$(get_cpu_variant2 ${BOARD_NAME})
 echo "CHIP_NAME: ${CHIP_NAME}"
-get_root_device
+#get_root_device
 get_root_device_size
 
 update_partitionmap
