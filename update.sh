@@ -910,7 +910,6 @@ function update_root()
         # cp -a ${TOP}/out/target/product/s5p6818_avn_ref/root ${RESULT_DIR}/
 
         cp ${TOP}/device/nexell/${BOARD_NAME}/init.rc ${RESULT_DIR}/root
-		cp ${TOP}/device/nexell/${BOARD_NAME}/pointercal ${RESULT_DIR}/root/data
 
         cp -a ${RESULT_DIR}/system ${RESULT_DIR}/root
 
