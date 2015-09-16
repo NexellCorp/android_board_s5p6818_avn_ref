@@ -90,10 +90,10 @@ PRODUCT_COPY_FILES += \
 
 # Dual Audio
 EN_DUAL_AUDIO := true 
-# ifeq ($(EN_DUAL_AUDIO),true)
+ifeq ($(EN_DUAL_AUDIO),true)
 PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/libnxdualaudio/lib/libnxdualaudio.so:system/lib/libnxdualaudio.so
-# endif
+endif
 
 ################################################################################
 ################################################################################
