@@ -89,7 +89,7 @@ PRODUCT_COPY_FILES += \
 	device/nexell/s5p6818_avn_ref/audio/audio_policy.conf:system/etc/audio_policy.conf
 
 # Dual Audio
-EN_DUAL_AUDIO := true 
+EN_DUAL_AUDIO := true
 ifeq ($(EN_DUAL_AUDIO),true)
 PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/libnxdualaudio/lib/libnxdualaudio.so:system/lib/libnxdualaudio.so
