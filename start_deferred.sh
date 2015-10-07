@@ -10,3 +10,6 @@ echo 7 > /proc/sys/kernel/printk
 setprop sys.usb.config adb
 
 chmod 777 /dev/input/*
+
+chmod 777 /data/misc/dhcp
+chmod 777 /data/misc/dhcp/*
