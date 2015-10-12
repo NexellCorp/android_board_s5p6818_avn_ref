@@ -7,9 +7,14 @@ echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 # printk log level
 echo 7 > /proc/sys/kernel/printk
 
-setprop sys.usb.config adb
-
 chmod 777 /dev/input/*
 
 chmod 777 /data/misc/dhcp
 chmod 777 /data/misc/dhcp/*
+
+sleep 0.5
+setprop sys.usb.config none 
+sleep 0.5
+stop adbd
+sleep 0.5
+setprop sys.usb.config adb
