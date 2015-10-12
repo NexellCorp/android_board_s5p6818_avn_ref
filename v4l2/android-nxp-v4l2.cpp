@@ -21,6 +21,7 @@ bool android_nxp_v4l2_init()
         s.useMlc1Rgb    = true;
         s.useResol      = true;
         s.useHdmi       = true;
+        s.useTvout      = true;
 
         int ret = v4l2_init(&s);
         if (ret != 0)
