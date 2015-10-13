@@ -1,5 +1,6 @@
 
 #define LOG_TAG "NXCameraBoardSensor"
+
 #include <linux/videodev2.h>
 #include <linux/v4l2-mediabus.h>
 
@@ -7,8 +8,8 @@
 #include <nxp-v4l2.h>
 #include <nx_camera_board.h>
 
-#include <SP2518.h>
-#include <SP0838.h>
+#include <TW9900.h>
+#include <TW9992.h>
 
 namespace android {
 
@@ -26,7 +27,7 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
 
     if (id == 0) {
         if (!backSensor) {
-            backSensor = new SP2518(nxp_v4l2_sensor0);
+            backSensor = new TW9900(nxp_v4l2_sensor0);
             if (!backSensor)
                 ALOGE("%s: cannot create BACK Sensor", __func__);
         }
@@ -35,11 +36,12 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
 
     else if (id == 1) {
         if (!frontSensor) {
-            frontSensor = new SP0838(nxp_v4l2_sensor1);
+            frontSensor = new TW9992(nxp_v4l2_sensor1);
             if (!frontSensor)
                 ALOGE("%s: cannot create FRONT Sensor", __func__);
         }
         sensor = frontSensor;
+
     }
 
     else {
@@ -65,9 +67,11 @@ uint32_t get_board_preview_v4l2_id(int cameraId)
 {
     switch (cameraId) {
     case 0:
-        return nxp_v4l2_decimator0;
+        //return nxp_v4l2_decimator0;
+       	return nxp_v4l2_clipper0;
     case 1:
-        return nxp_v4l2_decimator1;
+       	//return nxp_v4l2_decimator1;
+       	return nxp_v4l2_clipper1; 
     default:
         ALOGE("%s: invalid cameraId %d", __func__, cameraId);
         return 0;
@@ -106,7 +110,7 @@ bool get_board_camera_is_mipi(uint32_t v4l2_sensorId)
     case nxp_v4l2_sensor0:
         return false;
     case nxp_v4l2_sensor1:
-        return false;
+        return true;
     default:
         return false;
     }
