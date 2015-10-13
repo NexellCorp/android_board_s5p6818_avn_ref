@@ -348,7 +348,7 @@ function update_2ndboot()
         NSIH_FILE=${nsih_file}
 
         mkdir -p ${TOP}/device/nexell/${BOARD_NAME}/boot
-        cp ${secondboot_out_file} ${TOP}/device/nexell/${BOARD_NAME}/boot
+        # cp ${secondboot_out_file} ${TOP}/device/nexell/${BOARD_NAME}/boot
     fi
 }
 
@@ -914,7 +914,7 @@ function update_root()
         cp -a ${RESULT_DIR}/system ${RESULT_DIR}/root
 
         cp ${TOP}/device/nexell/${BOARD_NAME}/preloaded-classes* ${RESULT_DIR}/root/system/etc
-        cp ${TOP}/device/nexell/${BOARD_NAME}/fonts.xml ${RESULT_DIR}/root/system/etc
+        # cp ${TOP}/device/nexell/${BOARD_NAME}/fonts.xml ${RESULT_DIR}/root/system/etc
 
         chmod 664 ${RESULT_DIR}/root/system/framework/*.jar
 

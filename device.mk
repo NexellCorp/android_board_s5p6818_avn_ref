@@ -25,9 +25,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/nexell/s5p6818_avn_ref/tsc2007.idc:system/usr/idc/tsc2007.idc 
 
-PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+################################################################################
+# camera
+################################################################################
+PRODUCT_PACKAGES += \
+	camera.slsiap
 
 ################################################################################
 # audio
@@ -52,6 +54,10 @@ endif
 PRODUCT_COPY_FILES += \
 	device/nexell/s5p6818_avn_ref/media_codecs.xml:system/etc/media_codecs.xml \
 	device/nexell/s5p6818_avn_ref/media_profiles.xml:system/etc/media_profiles.xml
+
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 ################################################################################
 # modules 
