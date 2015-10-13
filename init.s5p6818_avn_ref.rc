@@ -61,8 +61,9 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/misc/dhcp 0777 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+    chmod 777 /data/misc/dhcp
 
 on boot
 
@@ -86,6 +87,11 @@ on boot
 
     # sd wakeup
     setprop pm.sdwake.enabled true
+
+    # multiwindow
+    #setprop persist.multiwindow_enable 1
+    #setprop persist.multiwindow_max_num 2
+    #setprop persist.multiwindow_policy 0
 
     mount debugfs /sys/kernel/debug /sys/kernel/debug
     setprop ro.radio.noril yes
