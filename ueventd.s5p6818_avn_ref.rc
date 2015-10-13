@@ -29,3 +29,6 @@
 
 # hdmi-cec
 /dev/hdmi-cec             0666   system     system
+
+# miracast uibc
+/dev/input/*              0777   system     system
