@@ -122,4 +122,55 @@
         <item>255</item>
     </integer-array>
 
+    <!-- key-action mapping -->
+    <string-array name="config_nexell_avn_keyActionMappingTable" translate="false" >
+        <!-- F1,short,lcd on off -->
+        <item>131,0,1</item>
+        <!-- F1,long,go home -->
+        <item>131,1,2</item>
+        <!-- ESC,short,back -->
+        <item>111,0,3</item>
+        <!-- F2,short,minilauncher -->
+        <item>132,0,4</item>
+        <!-- F3,short,master mute toggle -->
+        <item>133,0,10</item>
+        <!-- F3,long,sub mute toggle -->
+        <item>133,1,11</item>
+        <!-- F4,short,master volume up -->
+        <item>134,0,28</item>
+        <!-- F4,long,sub volume up -->
+        <item>134,1,29</item>
+        <!-- F5,short,master volume down -->
+        <item>135,0,38</item>
+        <!-- F5,short,sub volume down -->
+        <item>135,1,39</item>
+        <!-- F6,short,window0 exit -->
+        <item>136,0,40</item>
+        <!-- F6,long,window1 exit -->
+        <item>136,1,41</item>
+        <!-- F7,short,change window0_1 -->
+        <item>137,0,50</item>
+        <!-- F8,short,window0 toggle full -->
+        <item>138,0,60</item>
+        <!-- F8,long,window1 toggle full -->
+        <item>138,1,61</item>
+        <!-- F9,short,window1 toggle floating -->
+        <item>139,0,71</item>
+        <!-- numpad8,short,window1 move up -->
+        <item>152,0,81</item>
+        <!-- numpad2,short,window1 move down -->
+        <item>146,0,91</item>
+        <!-- numpad4,short,window1 move left -->
+        <item>148,0,101</item>
+        <!-- numpad6,short,window1 move right -->
+        <item>150,0,111</item>
+        <!-- numpad add,short,window1 size up -->
+        <item>157,0,121</item>
+        <!-- numpad subtract,short,window1 size down -->
+        <item>156,0,131</item>
+        <!-- F10,short,launch gallery -->
+        <item>140,0,140,com.android.gallery3d/.app.Gallery</item>
+        <!-- sysrq,short,screen capture -->
+        <item>120,0,150</item>
+    </string-array>
 </resources>
