@@ -173,4 +173,13 @@
         <!-- sysrq,short,screen capture -->
         <item>120,0,150</item>
     </string-array>
+
+    <dimen name="config_multiWindowControlbarWidth">100px</dimen>
+    <dimen name="config_multiWindowControlbarHeight">300px</dimen>
+    <dimen name="config_multiWindowControlbarStartY">150px</dimen>
+    <dimen name="config_minilauncherWidth">768px</dimen>
+    <dimen name="config_minilauncherHeight">450px</dimen>
+    <dimen name="config_dragControlHeight">100px</dimen>
+    <dimen name="config_floatingControlHeight">50px</dimen>
+
 </resources>
