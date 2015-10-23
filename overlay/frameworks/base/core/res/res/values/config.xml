@@ -172,6 +172,10 @@
         <item>140,0,140,com.android.gallery3d/.app.Gallery</item>
         <!-- sysrq,short,screen capture -->
         <item>120,0,150</item>
+        <!-- KEYCODE_HOME,short,go home -->
+        <item>3,0,2</item>
+        <!-- KEYCODE_POWER,short,lcd on off -->
+        <item>26,0,1</item>
     </string-array>
 
     <dimen name="config_multiWindowControlbarWidth">100px</dimen>
