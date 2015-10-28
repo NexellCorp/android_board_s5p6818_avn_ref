@@ -89,9 +89,9 @@ on boot
     setprop pm.sdwake.enabled true
 
     # multiwindow
-    #setprop persist.multiwindow_enable 1
-    #setprop persist.multiwindow_max_num 2
-    #setprop persist.multiwindow_policy 0
+    setprop persist.multiwindow_enable 1
+    setprop persist.multiwindow_max_num 2
+    setprop persist.multiwindow_policy 0
 
     mount debugfs /sys/kernel/debug /sys/kernel/debug
     setprop ro.radio.noril yes

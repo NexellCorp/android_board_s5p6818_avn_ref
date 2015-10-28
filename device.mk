@@ -5,6 +5,18 @@ PRODUCT_COPY_FILES += \
     kernel/arch/arm/boot/uImage:kernel
 
 ################################################################################
+# bootloader
+################################################################################
+PRODUCT_COPY_FILES += \
+    u-boot/u-boot.bin:bootloader
+
+################################################################################
+# 2ndboot
+################################################################################
+PRODUCT_COPY_FILES += \
+    device/nexell/s5p6818_avn_ref/boot/2ndboot.bin:2ndbootloader
+
+################################################################################
 # init
 ################################################################################
 PRODUCT_COPY_FILES += \
@@ -17,6 +29,12 @@ PRODUCT_COPY_FILES += \
 	device/nexell/s5p6818_avn_ref/start_deferred.sh:root/start_deferred.sh \
 	device/nexell/s5p6818_avn_ref/mon_snd.sh:root/mon_snd.sh \
 	device/nexell/s5p4418_msd8000b/factory_reset.sh:root/factory_reset.sh
+
+################################################################################
+# recovery 
+################################################################################
+PRODUCT_COPY_FILES += \
+	device/nexell/s5p6818_avn_ref/busybox:busybox
 
 ################################################################################
 # key
@@ -116,7 +134,7 @@ PRODUCT_COPY_FILES += \
 	linux/platform/s5p6818/library/lib/libnxvidrc_android.so:system/lib/libnxvidrc_android.so
 
 PRODUCT_COPY_FILES += \
-	device/nexell/s5p6818_avn_ref/busybox-armv7l:system/bin/busybox-armv7l \
+	device/nexell/s5p6818_avn_ref/busybox:system/bin/busybox \
 	device/nexell/s5p6818_avn_ref/memtester1-1:system/bin/memtester1-1 \
 	device/nexell/s5p6818_avn_ref/hwreg_cmd:system/bin/hwreg_cmd
 
