@@ -906,18 +906,8 @@ function update_root()
 {
     if [ ${UPDATE_ALL} == "true" ] || [ ${UPDATE_ROOT} == "true" ]; then
 
-        # sudo rm -rf ${RESULT_DIR}/root
-        # rm -rf ${RESULT_DIR}/root
-        # cp -a ${TOP}/out/target/product/s5p6818_avn_ref/root ${RESULT_DIR}/
-
         cp ${TOP}/device/nexell/${BOARD_NAME}/init.rc ${RESULT_DIR}/root
-
-        cp -a ${RESULT_DIR}/system ${RESULT_DIR}/root
-
-        cp ${TOP}/device/nexell/${BOARD_NAME}/preloaded-classes* ${RESULT_DIR}/root/system/etc
         # cp ${TOP}/device/nexell/${BOARD_NAME}/fonts.xml ${RESULT_DIR}/root/system/etc
-
-        chmod 664 ${RESULT_DIR}/root/system/framework/*.jar
 
         pushd $(pwd)
         cd ${RESULT_DIR}/root
@@ -929,11 +919,9 @@ function update_root()
         #make_init_dir
 
         local boot_size=$(get_partition_size ${BOARD_NAME} boot)
-        #local root_size=$((ROOT_DEVICE_SIZE - boot_size - 4312793088 - (2*1024*1024)))
-        local root_size=$((ROOT_DEVICE_SIZE - boot_size - (2*1024*1024)))
-        #local root_size=942669824
+        local system_size=$(get_partition_size ${BOARD_NAME} system)
+        local root_size=$((ROOT_DEVICE_SIZE - boot_size - system_size - (2*1024*1024)))
 
-        # sudo ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${root_size} ${RESULT_DIR}/root.img ${RESULT_DIR}/root
         ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${root_size} ${RESULT_DIR}/root.img ${RESULT_DIR}/root
         flash root ${RESULT_DIR}/root.img
     fi
@@ -963,6 +951,7 @@ if [ ${UPDATE_KERNEL} == "true" ] && [ ${UPDATE_ALL} == "false" ]; then
   update_kernel
 fi
 update_boot
+update_system
 update_root
 
 restart_board
