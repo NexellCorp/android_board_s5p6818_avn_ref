@@ -95,6 +95,11 @@ PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/library/libGLESv1_CM_vr.so:system/lib/egl/libGLESv1_CM_vr.so \
 	hardware/samsung_slsi/slsiap/prebuilt/library/libGLESv2_vr.so:system/lib/egl/libGLESv2_vr.so
 
+################################################################################
+# AVN application 
+################################################################################
+PRODUCT_COPY_FILES += \
+	hardware/samsung_slsi/slsiap/prebuilt/avn_monitor/nx_avn_monitor:system/bin/nx_avn_monitor
 
 # ffmpeg libraries
 EN_FFMPEG_EXTRACTOR := false
