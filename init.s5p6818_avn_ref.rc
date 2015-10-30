@@ -109,6 +109,9 @@ on boot
 # Set vr power policy as Coarse demand
 #    write /sys/devices/platform/vr.0/power_policy coarse_demand
 
+# avn uevent monitor
+    start monitor
+    
 on fs
     mount_all /fstab.s5p6818_avn_ref
     setprop ro.crypto.fuse_sdcard true
@@ -238,3 +241,5 @@ service factory_reset /factory_reset.sh
 #    disabled
 #    oneshot
 
+service monitor /system/bin/nx_avn_monitor
+    oneshot
