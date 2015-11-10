@@ -152,8 +152,8 @@
         <item>137,0,50</item>
         <!-- F8,short,window0 toggle full -->
         <item>138,0,60</item>
-        <!-- F9,short,window1 toggle full -->
-        <item>139,0,61</item>
+        <!-- F12,short,window1 toggle full -->
+        <item>142,0,61</item>
         <!-- F9,short,window1 toggle floating -->
         <item>139,0,71</item>
         <!-- numpad8,short,window1 move up -->
