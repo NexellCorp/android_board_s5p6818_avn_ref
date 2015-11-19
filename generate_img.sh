@@ -347,7 +347,7 @@ function update_2ndboot()
         NSIH_FILE=${nsih_file}
 
         mkdir -p ${TOP}/device/nexell/${BOARD_NAME}/boot
-        cp ${secondboot_out_file} ${TOP}/device/nexell/${BOARD_NAME}/boot
+        # cp ${secondboot_out_file} ${TOP}/device/nexell/${BOARD_NAME}/boot
     fi
 }
 
@@ -424,26 +424,26 @@ function update_bootloader()
     if [ ${UPDATE_UBOOT} == "true" ] || [ ${UPDATE_ALL} == "true" ]; then
 
         # check bootdevice env save location
-        local src_file=${TOP}/u-boot/include/configs/${CHIP_NAME}_${BOARD_PURE_NAME}.h
-        local backup_file=/tmp/${CHIP_NAME}_${BOARD_PURE_NAME}.h
-        cp ${src_file} ${backup_file}
-        case ${BOOT_DEVICE_TYPE} in
-            spirom) apply_uboot_eeprom_config ;;
-            sd0 | sd2) apply_uboot_sd_config ;;
-            nand) apply_uboot_nand_config ;;
-        esac
-        local diff_result="$(diff -urN ${src_file} ${backup_file})"
-        if [[ ${#diff_result} > 0 ]]; then
-            echo ${src_file} is modified!!! rebuild
-            cd ${TOP}/u-boot
-            make -j8
-            cd ${TOP}
+        # local src_file=${TOP}/u-boot/include/configs/${CHIP_NAME}_${BOARD_PURE_NAME}.h
+        # local backup_file=/tmp/${CHIP_NAME}_${BOARD_PURE_NAME}.h
+        # cp ${src_file} ${backup_file}
+        # case ${BOOT_DEVICE_TYPE} in
+        #     spirom) apply_uboot_eeprom_config ;;
+        #     sd0 | sd2) apply_uboot_sd_config ;;
+        #     nand) apply_uboot_nand_config ;;
+        # esac
+        # local diff_result="$(diff -urN ${src_file} ${backup_file})"
+        # if [[ ${#diff_result} > 0 ]]; then
+        #     echo ${src_file} is modified!!! rebuild
+        #     cd ${TOP}/u-boot
+        #     make -j8
+        #     cd ${TOP}
+        #     cp ${TOP}/u-boot/u-boot.bin ${RESULT_DIR}
+        # fi
+        #
+        # if [ ${UPDATE_UBOOT} == "true" ]; then
             cp ${TOP}/u-boot/u-boot.bin ${RESULT_DIR}
-        fi
-
-        if [ ${UPDATE_UBOOT} == "true" ]; then
-            cp ${TOP}/u-boot/u-boot.bin ${RESULT_DIR}
-        fi
+        # fi
 
         if [ ! -f ${RESULT_DIR}/u-boot.bin ]; then
             echo "Error: can't find u-boot.bin... check build!!!"
@@ -451,17 +451,17 @@ function update_bootloader()
         fi
 
         if [ ${BOOT_DEVICE_TYPE} == "nand" ]; then
-            local nand_sizes=$(get_nand_sizes_from_config_file ${BOARD_PURE_NAME})
-            local page_size=$(echo ${nand_sizes} | awk '{print $1}')
-			local load_addr="0x42c00000"
-			local launch_addr="0x42c00000"
-			#change this
-			local bootrecovery_file="u-boot.ecc"
+          local nand_sizes=$(get_nand_sizes_from_config_file ${BOARD_PURE_NAME})
+          local page_size=$(echo ${nand_sizes} | awk '{print $1}')
+          local load_addr="0x42c00000"
+          local launch_addr="0x42c00000"
+          #change this
+          local bootrecovery_file="u-boot.ecc"
 
-			if [ -z ${NSIH_FILE} ]; then
-				echo "update with 2ndboot" 
-				exit 1
-			fi
+          if [ -z ${NSIH_FILE} ]; then
+            echo "update with 2ndboot" 
+            exit 1
+          fi
 
             ${TOP}/linux/platform/${CHIP_NAME}/tools/bin/nx_bingen -t bootloader -d nand -o ${RESULT_DIR}/u-boot.ecc -i ${RESULT_DIR}/u-boot.bin -n ${NSIH_FILE} -p ${page_size} -l ${load_addr} -e ${launch_addr}
             vmsg "update bootloader: ${RESULT_DIR}/u-boot.ecc"
@@ -487,6 +487,7 @@ function update_kernel()
     if [ ${UPDATE_KERNEL} == "true" ] || [ ${UPDATE_ALL} == "true" ]; then
         if [ ${UPDATE_KERNEL} == "true" ]; then
             cp ${TOP}/kernel/arch/arm/boot/Image ${RESULT_DIR}/boot
+            cp ${TOP}/kernel/arch/arm/boot/uImage ${RESULT_DIR}/boot
             make_ext4 ${BOARD_NAME} boot
         fi
 
@@ -894,15 +895,8 @@ function update_root()
 {
     if [ ${UPDATE_ALL} == "true" ] || [ ${UPDATE_ROOT} == "true" ]; then
 
-        sudo rm -rf ${RESULT_DIR}/root
-        cp -a ${TOP}/out/target/product/s5p6818_avn_ref/root ${RESULT_DIR}/
-
         cp ${TOP}/device/nexell/${BOARD_NAME}/init.rc ${RESULT_DIR}/root
-        cp ${TOP}/device/nexell/${BOARD_NAME}/pointercal ${RESULT_DIR}/root/data/pointercal
-		chmod 666 ${RESULT_DIR}/root/data/pointercal
-
-        cp -a ${RESULT_DIR}/system ${RESULT_DIR}/root
-        chmod 664 ${RESULT_DIR}/root/system/framework/*.jar
+        # cp ${TOP}/device/nexell/${BOARD_NAME}/fonts.xml ${RESULT_DIR}/root/system/etc
 
         pushd $(pwd)
         cd ${RESULT_DIR}/root
@@ -911,14 +905,13 @@ function update_root()
         chmod 644 *.rc
         popd
 
-        make_init_dir
+        #make_init_dir
 
         local boot_size=$(get_partition_size ${BOARD_NAME} boot)
-        #local root_size=$((ROOT_DEVICE_SIZE - boot_size - 4312793088 - (2*1024*1024)))
-        local root_size=$((ROOT_DEVICE_SIZE - boot_size - (2*1024*1024)))
-        #local root_size=942669824
+        local system_size=$(get_partition_size ${BOARD_NAME} system)
+        local root_size=$((ROOT_DEVICE_SIZE - boot_size - system_size - (2*1024*1024)))
 
-        sudo ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${root_size} ${RESULT_DIR}/root.img ${RESULT_DIR}/root
+        ${TOP}/out/host/linux-x86/bin/make_ext4fs -s -l ${root_size} ${RESULT_DIR}/root.img ${RESULT_DIR}/root
     fi
 }
 
@@ -936,29 +929,13 @@ CHIP_NAME=$(get_cpu_variant2 ${BOARD_NAME})
 #get_root_device
 
 update_partitionmap
-if [ ${BOOT_DEVICE_TYPE} == "nand" ]; then
-#nand: release)
-export ANDROID_VERSION_MAJOR=$(get_android_version_major)
-set_android_toolchain_and_check
-
 update_2ndboot
 update_bootloader
-else
-update_2ndboot
-update_bootloader
-fi
-change_fstab_for_sd
 
-if [ ${UPDATE_BOOT} == "false" ] && [ ${UPDATE_ALL} == "false" ]; then
-	update_kernel
-	update_rootfs
-	update_bmp
-else
-	update_boot
+if [ ${UPDATE_KERNEL} == "true" ] && [ ${UPDATE_ALL} == "false" ]; then
+  update_kernel
 fi
-
-#update_system
-#update_cache
-#update_userdata
+update_boot
+update_system
 update_root
 
