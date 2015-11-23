@@ -28,7 +28,7 @@ PRODUCT_COPY_FILES += \
 	device/nexell/s5p6818_avn_ref/adj_lowmem.sh:root/adj_lowmem.sh \
 	device/nexell/s5p6818_avn_ref/start_deferred.sh:root/start_deferred.sh \
 	device/nexell/s5p6818_avn_ref/mon_snd.sh:root/mon_snd.sh \
-	device/nexell/s5p4418_msd8000b/factory_reset.sh:root/factory_reset.sh
+	device/nexell/s5p6818_avn_ref/factory_reset.sh:root/factory_reset.sh
 
 ################################################################################
 # recovery 
