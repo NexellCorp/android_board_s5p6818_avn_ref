@@ -28,7 +28,7 @@ PRODUCT_COPY_FILES += \
 	device/nexell/s5p6818_avn_ref/adj_lowmem.sh:root/adj_lowmem.sh \
 	device/nexell/s5p6818_avn_ref/start_deferred.sh:root/start_deferred.sh \
 	device/nexell/s5p6818_avn_ref/mon_snd.sh:root/mon_snd.sh \
-	device/nexell/s5p4418_msd8000b/factory_reset.sh:root/factory_reset.sh
+	device/nexell/s5p6818_avn_ref/factory_reset.sh:root/factory_reset.sh
 
 ################################################################################
 # recovery 
@@ -102,8 +102,8 @@ PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/avn_monitor/nx_avn_monitor:system/bin/nx_avn_monitor
 
 # ffmpeg libraries
-EN_FFMPEG_EXTRACTOR := false
-EN_FFMPEG_AUDIO_DEC := false
+EN_FFMPEG_EXTRACTOR := true
+EN_FFMPEG_AUDIO_DEC := true
 ifeq ($(EN_FFMPEG_EXTRACTOR),true)
 PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/omx/codec/ffmpeg/libs/libavcodec-2.1.4.so:system/lib/libavcodec-2.1.4.so    \
