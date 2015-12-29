@@ -1,5 +1,7 @@
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     SampleHome
+PRODUCT_PACKAGES += \
+    Launcher3
 
 PRODUCT_PROPERTY_OVERRIDES := \
         net.dns1=8.8.8.8 \
