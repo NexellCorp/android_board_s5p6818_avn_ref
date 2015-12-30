@@ -243,3 +243,11 @@ service factory_reset /factory_reset.sh
 
 service monitor /system/bin/nx_avn_monitor
     oneshot
+
+service reporthwc /system/bin/report_hwc_scenario
+    class main
+    disabled
+    oneshot
+
+on property:persist.hwc.resolution=*
+    start reporthwc
