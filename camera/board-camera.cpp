@@ -8,7 +8,20 @@
 #include <nxp-v4l2.h>
 #include <nx_camera_board.h>
 
+#define DECODER_TW9900      0
+#define AHD_NVP6114A        1
+#define SERDES_DS90UB914Q   2
+
+#define BACK_CAMERA DECODER_TW9900
+
+#if (BACK_CAMERA == DECODER_TW9900)
 #include <TW9900.h>
+#elif (BACK_CAMERA == AHD_NVP6114A)
+#include <NVP6114A.h>
+#elif (BACK_CAMERA == SERDES_DS90UB914Q)
+#include <DS90UB914Q.h>
+#endif
+
 #include <TW9992.h>
 
 namespace android {
@@ -27,7 +40,13 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
 
     if (id == 0) {
         if (!backSensor) {
+#if (BACK_CAMERA == DECODER_TW9900)
             backSensor = new TW9900(nxp_v4l2_sensor0);
+#elif (BACK_CAMERA == AHD_NVP6114A)
+            backSensor = new NVP6114A(nxp_v4l2_sensor0);
+#elif (BACK_CAMERA == SERDES_DS90UB914Q)
+            backSensor = new DS90UB914Q(nxp_v4l2_sensor0);
+#endif
             if (!backSensor)
                 ALOGE("%s: cannot create BACK Sensor", __func__);
         }
@@ -49,7 +68,6 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
     };
     return sensor;
 }
-
 
 NXCameraBoardSensor *get_board_camera_sensor_by_v4l2_id(int v4l2_id) {
     switch (v4l2_id) {
