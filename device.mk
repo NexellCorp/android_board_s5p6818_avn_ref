@@ -103,12 +103,13 @@ PRODUCT_COPY_FILES += \
 
 
 # iOS iAP/Tethering
-BOARD_USES_IOS_IAP_TETHERING := false
+BOARD_USES_IOS_IAP_TETHERING := true
 ifeq ($(BOARD_USES_IOS_IAP_TETHERING),true)
 PRODUCT_PACKAGES += \
 	libiconv				\
+	libxml2_ios			\
+	libusb_ios				\
 	libplist				\
-	libusb				\
 	libusbmuxd 			\
 	libimobiledevice		\
 	usbmuxdd
