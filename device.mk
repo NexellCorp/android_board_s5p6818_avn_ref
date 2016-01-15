@@ -112,8 +112,8 @@ PRODUCT_PACKAGES += \
 	libplist		\
 	libusbmuxd 		\
 	libimobiledevice	\
-	usbmuxdd		\
-	ipod_dev_mgr_server	\
+	usbmuxdd
+#	ipod_devd_mgr_server	\
 	ipod_dev_mgr_client	
 
 PRODUCT_COPY_FILES += \
