@@ -118,8 +118,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/ios_tether/libiOSMgr/lib/libiOSMgr.so:system/lib/libiOSMgr.so	\
-	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/iOS_mgr_service:system/bin/iOS_mgr_service	\
-	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/iOS_mgr_client:system/bin/iOS_mgr_client
+	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/ipod_dev_mgr_server:system/bin/ipod_dev_mgr_server	\
+	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/ipod_dev_mgr_client:system/bin/ipod_dev_mgr_client
 endif
 
 # ffmpeg libraries
