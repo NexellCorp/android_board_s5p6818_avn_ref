@@ -106,17 +106,19 @@ PRODUCT_COPY_FILES += \
 BOARD_USES_IOS_IAP_TETHERING := true
 ifeq ($(BOARD_USES_IOS_IAP_TETHERING),true)
 PRODUCT_PACKAGES += \
-	libiconv				\
-	libxml2_ios			\
-	libusb_ios				\
-	libplist				\
-	libusbmuxd 			\
-	libimobiledevice		\
-	usbmuxdd
+	libiconv		\
+	libxml2_ios		\
+	libusb_ios		\
+	libplist		\
+	libusbmuxd 		\
+	libimobiledevice	\
+	usbmuxdd		\
+	ipod_dev_mgr_server	\
+	ipod_dev_mgr_client	
 
 PRODUCT_COPY_FILES += \
-	hardware/samsung_slsi/slsiap/ios_tether/ipod_dev_mgr_bin/ipod_dev_mgr_server:system/bin/ipod_dev_mgr_server    \
-	hardware/samsung_slsi/slsiap/ios_tether/ipod_dev_mgr_bin/ipod_dev_mgr_client:system/bin/ipod_dev_mgr_client
+	hardware/samsung_slsi/slsiap/ios_tether/libiOSMgr/lib/libiOSMgr.so:system/lib/libiOSMgr.so
+
 endif
 
 # ffmpeg libraries
