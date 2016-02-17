@@ -50,6 +50,7 @@ BOARD_USES_ALSA_AUDIO 	 := false
 
 # Dual Audio
 EN_DUAL_AUDIO := true
+EN_DUAL_AUDIO_PATH_SPDIF := true
 
 BOARD_HAVE_BLUETOOTH := false
 
