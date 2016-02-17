@@ -344,6 +344,9 @@ on boot
 	# Set default media player to awesome player
 	setprop media.stagefright.use-awesome 1
 
+	# Set default video player mode
+	setprop persist.sys.media.player-mode window
+
     # basic network init
     ifup lo
     hostname localhost
