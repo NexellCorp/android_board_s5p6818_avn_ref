@@ -107,6 +107,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	hardware/samsung_slsi/slsiap/prebuilt/avn_monitor/nx_avn_monitor:system/bin/nx_avn_monitor
 
+################################################################################
+# RearCamera Application
+################################################################################
+PRODUCT_COPY_FILES += \
+    hardware/samsung_slsi/slsiap/prebuilt/NxRearCamService/NxRearCamService:system/bin/NxRearCamService
 
 # iOS iAP/Tethering
 BOARD_USES_IOS_IAP_TETHERING := true
