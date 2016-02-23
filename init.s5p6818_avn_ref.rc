@@ -247,7 +247,7 @@ service factory_reset /factory_reset.sh
 service monitor /system/bin/nx_avn_monitor
     oneshot
 
-service rearcamservice /system/bin/NxRearCamService -t vip -m 0 -s 1 -c 1 -r 720,480 -p -d 
+service rearcamservice /system/bin/NxRearCamService -t vip -m 0 -s 1 -c 1 -r 720,480 -p -d -l 700
     oneshot
 
 service reporthwc /system/bin/report_hwc_scenario
