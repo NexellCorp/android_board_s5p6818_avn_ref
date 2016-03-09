@@ -635,6 +635,17 @@ service pre-recovery /system/bin/uncrypt
     disabled
     oneshot
 
+service dhcpcd_eth0 /system/bin/dhcpcd -aABDKL
+    class late_start
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+
 on property:persist.sys.usb.config=*
     setprop sys.usb.config ${persist.sys.usb.config}
 
