@@ -123,14 +123,12 @@ PRODUCT_PACKAGES += \
 	libplist		\
 	libusbmuxd 		\
 	libimobiledevice	\
-	usbmuxdd	
-#	ipod_dev_mgr_server	\
-	ipod_dev_mgr_client	
+	usbmuxdd		\
+	ipod_dev_mgr_server	\
+	ipod_dev_mgr_client
 
-PRODUCT_COPY_FILES += \
-	hardware/samsung_slsi/slsiap/ios_tether/libiOSMgr/lib/libiOSMgr.so:system/lib/libiOSMgr.so	\
-	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/ipod_dev_mgr_server:system/bin/ipod_dev_mgr_server	\
-	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/ipod_dev_mgr_client:system/bin/ipod_dev_mgr_client
+ PRODUCT_COPY_FILES += \
+	hardware/samsung_slsi/slsiap/ios_tether/libiOSMgr/lib/libiOSMgr.so:system/lib/libiOSMgr.so
 endif
 
 # ffmpeg libraries
