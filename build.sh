@@ -9,6 +9,7 @@ export TOP RESULT_DIR
 BUILD_ALL=true
 BUILD_UBOOT=false
 BUILD_KERNEL=false
+BUILD_NXUPDATE=false
 BUILD_MODULE=false
 BUILD_ANDROID=false
 BUILD_DIST=false
@@ -73,6 +74,7 @@ function parse_args()
             -t ) case "$2" in
                     u-boot  ) BUILD_ALL=false; BUILD_UBOOT=true ;;
                     kernel  ) BUILD_ALL=false; BUILD_KERNEL=true ;;
+                    nxupdate) BUILD_ALL=false; BUILD_NXUPDATE=true ;;
                     module  ) BUILD_ALL=false; BUILD_MODULE=true ;;
                     android ) BUILD_ALL=false; BUILD_ANDROID=true ;;
                     dist    ) BUILD_ALL=false; BUILD_DIST=true ;;
@@ -290,6 +292,43 @@ function apply_kernel_nand_config()
 	sed -i 's/.*CONFIG_NXP_FTL .*/CONFIG_NXP_FTL=y\nCONFIG_NAND_FTL=y/g' ${dst_file}
     
     echo ${dst_config}
+}
+
+function build_nxupdate()
+{
+    if [ ${BUILD_ALL} == "true" ] || [ ${BUILD_NXUPDATE} == "true" ]; then
+        echo ""
+        echo "=============================================="
+        echo "build nxupdate kernel"
+        echo "=============================================="
+
+        if [ ! -e ${TOP}/kernel ]; then
+            cd ${TOP}
+            ln -s linux/kernel/kernel-3.4.39 kernel
+        fi
+
+        cd ${TOP}/kernel
+
+        local kernel_config=${CHIP_NAME}_${BOARD_PURE_NAME}_update_defconfig
+
+        if [ ${ROOT_DEVICE_TYPE} == "nand" ]; then
+            kernel_config=$(apply_kernel_nand_config)
+            echo "nand kernel config: ${kernel_config}"
+        fi
+
+        make distclean
+        cp arch/arm/configs/${kernel_config} .config
+        yes "" | make ARCH=arm oldconfig
+        make ARCH=arm uImage_update -j8
+
+        if [ ${ROOT_DEVICE_TYPE} == "nand" ]; then
+            rm -f ${TOP}/arch/arm/configs/${kernel_config}
+        fi
+
+        check_result "build-nxupdate kernel"
+
+        echo "---------- End of build nxupdate kernel"
+    fi
 }
 
 function build_kernel()
@@ -626,7 +665,7 @@ function build_dist()
             fi
         fi
         cd ${tmpdir}
-        zip -r -q ../target *
+        zip --symlinks -r -q ../target *
         cd ${TOP}
         if [ ${ANDROID_VERSION_MAJOR} == "4" ]; then
             cp build/tools/releasetools/common.py /tmp/
@@ -643,7 +682,7 @@ function build_dist()
                 unzip -o -q ${OTA_PREVIOUS_FILE} -d ${src_tmpdir}
                 cp ${RESULT_DIR}/boot.img ${src_tmpdir}/BOOTABLE_IMAGES
                 cd ${src_tmpdir}
-                zip -r -q ../src_target *
+                zip --symlinks -r -q ../src_target *
                 cd ${TOP}
                 i_option="-i ${RESULT_DIR}/src_target.zip"
             fi
@@ -687,6 +726,11 @@ function make_boot()
 
     cp ${TOP}/kernel/arch/arm/boot/Image ${RESULT_DIR}/boot
     cp ${TOP}/kernel/arch/arm/boot/uImage ${RESULT_DIR}/boot
+	if [ ${BUILD_ALL} == "true" ] || [ ${BUILD_NXUPDATE} == "true" ]; then
+    cp ${TOP}/kernel/arch/arm/boot/uImage_update ${RESULT_DIR}/boot
+    cp ${TOP}/device/nexell/${BOARD_NAME}/ramdisk_update.gz ${RESULT_DIR}/boot
+	fi
+
 
     copy_bmp_files_to_boot ${BOARD_NAME}
 
@@ -782,6 +826,7 @@ check_board_name ${BOARD_NAME}
 check_wifi_device ${WIFI_DEVICE_NAME}
 clean_up
 build_uboot
+build_nxupdate
 build_kernel
 build_module
 build_android
