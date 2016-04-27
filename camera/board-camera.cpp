@@ -13,6 +13,7 @@
 #define SERDES_DS90UB914Q   2
 
 #define BACK_CAMERA AHD_NVP6114A
+//#define BACK_CAMERA DECODER_TW9900
 
 #if (BACK_CAMERA == DECODER_TW9900)
 #include <TW9900.h>
@@ -28,7 +29,7 @@ namespace android {
 
 extern "C" {
 int get_board_number_of_cameras() {
-    return 2;
+    return 1;
 }
 }
 
@@ -39,33 +40,16 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
     NXCameraBoardSensor *sensor = NULL;
 
     if (id == 0) {
-        if (!backSensor) {
-#if (BACK_CAMERA == DECODER_TW9900)
-            backSensor = new TW9900(nxp_v4l2_sensor0);
-#elif (BACK_CAMERA == AHD_NVP6114A)
-            backSensor = new NVP6114A(nxp_v4l2_sensor0);
-#elif (BACK_CAMERA == SERDES_DS90UB914Q)
-            backSensor = new DS90UB914Q(nxp_v4l2_sensor0);
-#endif
-            if (!backSensor)
-                ALOGE("%s: cannot create BACK Sensor", __func__);
-        }
-        sensor = backSensor;
-    }
-
-    else if (id == 1) {
         if (!frontSensor) {
             frontSensor = new TW9992(nxp_v4l2_sensor1);
             if (!frontSensor)
                 ALOGE("%s: cannot create FRONT Sensor", __func__);
         }
         sensor = frontSensor;
-
-    }
-
-    else {
+    } else {
         ALOGE("INVALID ID: %d", id);
     };
+
     return sensor;
 }
 
@@ -75,7 +59,7 @@ NXCameraBoardSensor *get_board_camera_sensor_by_v4l2_id(int v4l2_id) {
         return backSensor;
     case nxp_v4l2_sensor1:
         return frontSensor;
-    default: 
+    default:
         ALOGE("%s: invalid v4l2 id(%d)", __func__, v4l2_id);
         return NULL;
     }
@@ -85,11 +69,7 @@ uint32_t get_board_preview_v4l2_id(int cameraId)
 {
     switch (cameraId) {
     case 0:
-        //return nxp_v4l2_decimator0;
-       	return nxp_v4l2_clipper0;
-    case 1:
-       	//return nxp_v4l2_decimator1;
-       	return nxp_v4l2_clipper1; 
+	 return nxp_v4l2_decimator1;
     default:
         ALOGE("%s: invalid cameraId %d", __func__, cameraId);
         return 0;
@@ -100,8 +80,6 @@ uint32_t get_board_capture_v4l2_id(int cameraId)
 {
     switch (cameraId) {
     case 0:
-        return nxp_v4l2_clipper0;
-    case 1:
         return nxp_v4l2_clipper1;
     default:
         ALOGE("%s: invalid cameraId %d", __func__, cameraId);
@@ -113,8 +91,6 @@ uint32_t get_board_record_v4l2_id(int cameraId)
 {
     switch (cameraId) {
     case 0:
-        return nxp_v4l2_clipper0;
-    case 1:
         return nxp_v4l2_clipper1;
     default:
         ALOGE("%s: invalid cameraId %d", __func__, cameraId);
