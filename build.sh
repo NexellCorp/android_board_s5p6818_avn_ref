@@ -296,7 +296,7 @@ function apply_kernel_nand_config()
 
 function build_nxupdate()
 {
-    if [ ${BUILD_ALL} == "true" ] || [ ${BUILD_NXUPDATE} == "true" ]; then
+    if [ ${BUILD_NXUPDATE} == "true" ]; then
         echo ""
         echo "=============================================="
         echo "build nxupdate kernel"
@@ -726,7 +726,7 @@ function make_boot()
 
     cp ${TOP}/kernel/arch/arm/boot/Image ${RESULT_DIR}/boot
     cp ${TOP}/kernel/arch/arm/boot/uImage ${RESULT_DIR}/boot
-	if [ ${BUILD_ALL} == "true" ] || [ ${BUILD_NXUPDATE} == "true" ]; then
+	if [ ${BUILD_NXUPDATE} == "true" ]; then
     cp ${TOP}/kernel/arch/arm/boot/uImage_update ${RESULT_DIR}/boot
     cp ${TOP}/device/nexell/${BOARD_NAME}/ramdisk_update.gz ${RESULT_DIR}/boot
 	fi
