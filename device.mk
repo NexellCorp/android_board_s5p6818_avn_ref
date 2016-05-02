@@ -113,26 +113,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     hardware/samsung_slsi/slsiap/prebuilt/NxRearCamService/NxRearCamService:system/bin/NxRearCamService
 
-# iOS iAP/Tethering
-BOARD_USES_IOS_IAP_TETHERING := true
-ifeq ($(BOARD_USES_IOS_IAP_TETHERING),true)
-PRODUCT_PACKAGES += \
-	libiconv		\
-	libxml2_ios		\
-	libusb_ios		\
-	libplist		\
-	libusbmuxd 		\
-	libimobiledevice	\
-	usbmuxdd	
-#	ipod_dev_mgr_server	\
-	ipod_dev_mgr_client	
-
-PRODUCT_COPY_FILES += \
-	hardware/samsung_slsi/slsiap/ios_tether/libiOSMgr/lib/libiOSMgr.so:system/lib/libiOSMgr.so	\
-	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/ipod_dev_mgr_server:system/bin/ipod_dev_mgr_server	\
-	hardware/samsung_slsi/slsiap/ios_tether/iOS_mgr_service/ipod_dev_mgr_client:system/bin/ipod_dev_mgr_client
-endif
-
 # ffmpeg libraries
 EN_FFMPEG_EXTRACTOR := true
 EN_FFMPEG_AUDIO_DEC := true
@@ -271,3 +251,9 @@ $(call inherit-product-if-exists, vendor/nexell/apps/nxauxcontrol.mk)
 $(call inherit-product-if-exists, vendor/nexell/apps/nxsystemsetting.mk)
 $(call inherit-product-if-exists, vendor/nexell/apps/nxdualaudiotest.mk)
 $(call inherit-product-if-exists, vendor/nexell/apps/smartsync.mk)
+
+# iOS iAP/Tethering
+BOARD_USES_IOS_IAP_TETHERING := true
+ifeq ($(BOARD_USES_IOS_IAP_TETHERING),true)
+$(call inherit-product-if-exists, hardware/samsung_slsi/slsiap/ios_tether/ios_tethering.mk)
+endif
