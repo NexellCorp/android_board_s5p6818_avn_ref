@@ -34,9 +34,8 @@ PRODUCT_COPY_FILES += \
 # recovery 
 ################################################################################
 PRODUCT_COPY_FILES += \
-	device/nexell/s5p6818_avn_ref/busybox:busybox \
-	device/nexell/s5p6818_avn_ref/wipe_data.sh:wipe_data.sh \
-	device/nexell/s5p6818_avn_ref/wipe_cache.sh:wipe_cache.sh
+	device/nexell/s5p6818_avn_ref/busybox:busybox 
+
 
 ################################################################################
 # key
